@@ -6,10 +6,6 @@ import android.content.SharedPreferences.Editor;
 import android.util.Log;
 import android.widget.Toast;
 
-
-import java.lang.reflect.Type;
-import java.util.List;
-
 public class SessionManager {
 
     Context context;
@@ -32,9 +28,13 @@ public class SessionManager {
         editor.apply();
     }
 
-    public void setLAuth(String key, String secret){
+    public void setLAuth(String key, String secret, String username, String url, String created_at, String identity_verified_at){
         editor.putString(LBC_KEY, key);
         editor.putString(LBC_SECRET, secret);
+        editor.putString(Config.username, username);
+        editor.putString(Config.url, url);
+        editor.putString(Config.created_at, created_at);
+        editor.putString(Config.identity_verified_at, identity_verified_at);
         editor.apply();
     }
 
@@ -44,5 +44,18 @@ public class SessionManager {
 
     public String getLbcSecret(){
         return pref.getString(LBC_SECRET,null);
+    }
+
+    public String getUsername(){
+        return pref.getString(Config.username,null);
+    }
+    public String getUrl(){
+        return pref.getString(Config.url,null);
+    }
+    public String getCreated_at(){
+        return pref.getString(Config.created_at,null);
+    }
+    public String getIdentity_verified_at(){
+        return pref.getString(Config.identity_verified_at,null);
     }
 }

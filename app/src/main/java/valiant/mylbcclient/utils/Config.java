@@ -21,7 +21,7 @@ public class Config {
     public static final String LBC_KEY = "112171de0d8348edce118a65b449cc2b";
     public static final String LBC_SECRET = "5b003b95c73f6374672ff129c792f0a7d7e512b3e75d4e9af549c1457d22757a";
 
-    public static final String USERNAME = "username";
+    public static final String username = "username";
     public static final String url = "url";
     public static final String feedback_score = "feedback_score";
     public static final String feedback_count = "feedback_count";
@@ -52,23 +52,6 @@ public class Config {
 
             return null;
         }
-    }
-
-    public static String encode(String msg, String key) {
-        Mac sha256_HMAC = null;
-        try {
-            sha256_HMAC = Mac.getInstance("HmacSHA256");
-        } catch (NoSuchAlgorithmException e) {
-            Log.e("Config::::getinstance ", e.getMessage());
-        }
-        SecretKeySpec secret_key = new SecretKeySpec(key.getBytes(StandardCharsets.UTF_8), "HmacSHA256");
-        try {
-            sha256_HMAC.init(secret_key);
-        } catch (InvalidKeyException e) {
-            Log.e(":COnfig init ", e.getMessage());
-        }
-
-        return Hex.encodeHexString(sha256_HMAC.doFinal(msg.getBytes(StandardCharsets.UTF_8)));
     }
 
 
