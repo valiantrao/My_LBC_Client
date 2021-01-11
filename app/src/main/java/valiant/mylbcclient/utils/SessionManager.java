@@ -8,8 +8,6 @@ import android.widget.Toast;
 
 public class SessionManager {
 
-    Context context;
-
     SharedPreferences pref;
 
     Editor editor;

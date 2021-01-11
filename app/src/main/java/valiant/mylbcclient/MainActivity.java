@@ -13,6 +13,8 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.chaquo.python.Python;
+import com.chaquo.python.android.AndroidPlatform;
 import com.google.android.material.navigation.NavigationView;
 
 import valiant.mylbcclient.fragent.HomeFragment;
@@ -27,6 +29,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     //private Button run_main_btn, run_background_btn;
     private SessionManager sessionManager;
     private DrawerLayout drawer;
+    public static Python python;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +38,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         sessionManager = new SessionManager(this);
+
+
+        if (!Python.isStarted()) {
+            Python.start(new AndroidPlatform(this));
+        }
+
+        python = Python.getInstance();
 
         if (sessionManager.getLbcKey() == null){
             startActivity(new Intent(this, AuthActivity.class));

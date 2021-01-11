@@ -69,7 +69,7 @@ public class AuthActivity extends AppCompatActivity {
 
             @Override
             protected String doWork() {
-                return python.getModule("hh").callAttr("Auth", Config.LBC_KEY, Config.LBC_SECRET).toString();
+                return python.getModule(Config.LBC_API).callAttr("Auth", Config.LBC_KEY, Config.LBC_SECRET).toString();
             }
 
             @Override

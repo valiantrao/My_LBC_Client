@@ -17,7 +17,7 @@ import javax.crypto.Mac;
 import javax.crypto.spec.SecretKeySpec;
 
 public class Config {
-
+    public static final String LBC_API = "lbc_api";
     public static final String LBC_KEY = "112171de0d8348edce118a65b449cc2b";
     public static final String LBC_SECRET = "5b003b95c73f6374672ff129c792f0a7d7e512b3e75d4e9af549c1457d22757a";
 
