@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:gravity="center"
+    android:padding="20dp"
+    android:orientation="vertical"
+    tools:context=".AuthActivity">
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/enter_key"
+        android:hint="Enter LBC Key Here"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/enter_secret"
+        android:hint="Enter LBC Secret Here"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/authanticate"
+        android:text="Authanticate"
+        android:layout_margin="20dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.wang.avi.AVLoadingIndicatorView
+        android:id="@+id/avi"
+        android:visibility="gone"
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:indicatorColor="@color/black"
+        app:indicatorName="BallPulseIndicator" />
+
+    <TextView
+        android:layout_marginTop="20dp"
+        android:padding="20dp"
+        android:text="@string/auth_txt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
+</LinearLayout>
