@@ -17,6 +17,8 @@ import com.chaquo.python.Python;
 import com.chaquo.python.android.AndroidPlatform;
 import com.google.android.material.navigation.NavigationView;
 
+import valiant.mylbcclient.fragent.AddFunctionsFragment;
+import valiant.mylbcclient.fragent.FunctionsFragment;
 import valiant.mylbcclient.fragent.HomeFragment;
 import valiant.mylbcclient.utils.SessionManager;
 
@@ -24,6 +26,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private final String TAG = this.getClass().getSimpleName();
     private final int HOME_FRAGMENT_ID = 1;
+    private final int FUNCTIONS_FRAGMENT_ID = 2;
+    private final int ADD_FUNCTION_FRAGMENT_ID = 3;
     //private AVLoadingIndicatorView avi;
     //private Python python;
     //private Button run_main_btn, run_background_btn;
@@ -107,17 +111,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
-
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
+        if (id == R.id.home) {
+            changeFragment(HOME_FRAGMENT_ID);
+        } else if (id == R.id.add_functions) {
+            changeFragment(FUNCTIONS_FRAGMENT_ID);
         } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
 
         }
 
@@ -157,7 +155,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
             switch (id){
                 case HOME_FRAGMENT_ID:
+
                     return new HomeFragment();
+
+                case FUNCTIONS_FRAGMENT_ID:
+
+                    return new FunctionsFragment();
+
                 default:
                     return new HomeFragment();
             }
