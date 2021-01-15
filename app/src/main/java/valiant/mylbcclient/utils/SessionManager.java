@@ -3,14 +3,8 @@ package valiant.mylbcclient.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
-import android.util.Log;
-import android.widget.Toast;
-
-import androidx.appcompat.widget.AppCompatEditText;
 
 import com.google.gson.Gson;
-
-import valiant.mylbcclient.model.Function;
 
 public class SessionManager {
 
@@ -73,11 +67,5 @@ public class SessionManager {
         return pref.getInt(FUNCTION_COUNT, 0);
     }
 
-    public void addFunction(String function_name, String ad_id, String ad_ids_to_compare, String amount, String new_trade_first_msg, boolean isAbove){
-        Function function = new Function(function_name, ad_id, ad_ids_to_compare, amount, new_trade_first_msg, isAbove);
-        Gson gson = new Gson();
-        String json = gson.toJson(function);
-        editor.putString(function_name, json);
-        editor.apply();
-    }
+
 }

@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.wang.avi.AVLoadingIndicatorView;
@@ -21,11 +22,17 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 import needle.Needle;
 import needle.UiRelatedTask;
 import valiant.mylbcclient.AuthActivity;
 import valiant.mylbcclient.MainActivity;
 import valiant.mylbcclient.R;
+import valiant.mylbcclient.adapter.BuyListAdapter;
+import valiant.mylbcclient.adapter.FunctionListAdapter;
+import valiant.mylbcclient.model.BuyAdList;
+import valiant.mylbcclient.model.FunctionsList;
 import valiant.mylbcclient.utils.Config;
 import valiant.mylbcclient.utils.FunctionsDatabase;
 
@@ -35,6 +42,9 @@ public class FunctionsFragment extends Fragment {
     private View parentView;
     private AVLoadingIndicatorView avi;
     private String functionName, ad_id;
+    private RecyclerView recyclerView;
+    private List<FunctionsList> functionsLists;
+    private FunctionListAdapter functionListAdapter;
 
     @Override
     public void onAttach(@NonNull Context context) {
