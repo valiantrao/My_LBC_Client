@@ -53,6 +53,7 @@
             android:layout_height="wrap_content"/>
 
         <RadioGroup
+            android:id="@+id/radio_group"
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -60,13 +61,35 @@
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:text="Above"
                 android:checked="true"
+                android:id="@+id/above_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
 
             <androidx.appcompat.widget.AppCompatRadioButton
                 android:layout_width="wrap_content"
+                android:text="Below"
+                android:id="@+id/below_price"
                 android:layout_height="wrap_content"/>
         </RadioGroup>
+
+        <TextView
+            android:layout_marginTop="10dp"
+            android:text="Auto reply for new trades"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatEditText
+            android:id="@+id/new_trade_first_msg"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:text="Save"
+            android:layout_marginTop="20dp"
+            android:id="@+id/save_function"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"/>
+
     </LinearLayout>
 
 </ScrollView>

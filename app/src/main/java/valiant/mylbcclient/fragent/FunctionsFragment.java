@@ -1,7 +1,11 @@
 package valiant.mylbcclient.fragent;
 
 import android.content.Context;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,14 +16,25 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.wang.avi.AVLoadingIndicatorView;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import needle.Needle;
+import needle.UiRelatedTask;
+import valiant.mylbcclient.AuthActivity;
 import valiant.mylbcclient.MainActivity;
 import valiant.mylbcclient.R;
+import valiant.mylbcclient.utils.Config;
+import valiant.mylbcclient.utils.FunctionsDatabase;
 
 public class FunctionsFragment extends Fragment {
 
     private Context context;
     private View parentView;
+    private AVLoadingIndicatorView avi;
+    private String functionName, ad_id;
 
     @Override
     public void onAttach(@NonNull Context context) {
@@ -41,6 +56,7 @@ public class FunctionsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        avi = view.findViewById(R.id.avi);
         FloatingActionButton floatingActionButton = view.findViewById(R.id.add_new_function);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -51,5 +67,38 @@ public class FunctionsFragment extends Fragment {
             }
         });
 
+
+
+    }
+
+    private void loadData(String key, String secret){
+        avi.smoothToShow();
+        Needle.onBackgroundThread().execute(new UiRelatedTask<String>() {
+
+            @Override
+            protected String doWork() {
+
+                FunctionsDatabase functionsDatabase = new FunctionsDatabase(context);
+                Cursor data = functionsDatabase.getFunctionNames();
+                if (data != null){
+                    while (data.moveToNext()){
+
+                        functionName = data.getString(data.getColumnIndexOrThrow(FunctionsDatabase.key_function_name));
+                        ad_id = data.getString(data.getColumnIndexOrThrow(FunctionsDatabase.key_ad_id));
+
+                    }
+                    data.close();
+                    functionsDatabase.close();
+                }
+
+                return null;
+            }
+
+            @Override
+            protected void thenDoUiRelatedWork(String result) {
+                avi.smoothToHide();
+
+            }
+        });
     }
 }
