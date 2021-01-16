@@ -72,8 +72,14 @@ public class FunctionListAdapter extends RecyclerView.Adapter<FunctionListAdapte
         @Override
         public void onClick(View view) {
 
+            Bundle bundle = new Bundle();
+            bundle.putString("function", functionsList.get(getAdapterPosition()).getFunction_name());
+
+            AddFunctionsFragment addFunctionsFragment = new AddFunctionsFragment();
+            addFunctionsFragment.setArguments(bundle);
+
             MainActivity mainActivity = (MainActivity) view.getContext();
-            mainActivity.getSupportFragmentManager().beginTransaction().add(R.id.main_fragment, new AddFunctionsFragment(), "fragment")
+            mainActivity.getSupportFragmentManager().beginTransaction().replace(R.id.main_fragment, addFunctionsFragment, "fragment")
                     .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE).commit();
         }
 

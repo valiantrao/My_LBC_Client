@@ -39,7 +39,7 @@ public class FunctionsDatabase extends SQLiteOpenHelper {
                 key_ad_ids_to_compare + " varchar NOT NULL, " +
                 key_amount + " varchar NOT NULL, " +
                 key_new_trade_first_msg + " varchar NOT NULL, " +
-                key_isAbove + " boolean NOT NULL)";
+                key_isAbove + " INTEGER NOT NULL)";
 
         sqLiteDatabase.execSQL(createTable);
 
@@ -51,7 +51,7 @@ public class FunctionsDatabase extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public void addFunction(String function_name, String ad_id, String ad_ids_to_compare, String amount, String new_trade_first_msg, boolean isAbove) {
+    public void addFunction(String function_name, String ad_id, String ad_ids_to_compare, String amount, String new_trade_first_msg, int isAbove) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();

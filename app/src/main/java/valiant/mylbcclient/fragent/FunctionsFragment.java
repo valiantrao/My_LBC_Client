@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,6 +23,7 @@ import com.wang.avi.AVLoadingIndicatorView;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import needle.Needle;
@@ -41,7 +43,8 @@ public class FunctionsFragment extends Fragment {
     private Context context;
     private View parentView;
     private AVLoadingIndicatorView avi;
-    private String functionName, ad_id;
+    private String function_name, ad_id, ad_ids_to_compare, amount, new_trade_first_msg;
+    private int isAbove;
     private RecyclerView recyclerView;
     private List<FunctionsList> functionsLists;
     private FunctionListAdapter functionListAdapter;
@@ -77,37 +80,52 @@ public class FunctionsFragment extends Fragment {
             }
         });
 
+        recyclerView = view.findViewById(R.id.recyclerView);
 
+        functionsLists = new ArrayList<>();
+        functionListAdapter = new FunctionListAdapter(context, functionsLists);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(functionListAdapter);
+
+        getFunctions();
 
     }
 
-    private void loadData(String key, String secret){
+    private void getFunctions(){
         avi.smoothToShow();
-        Needle.onBackgroundThread().execute(new UiRelatedTask<String>() {
+        Needle.onBackgroundThread().execute(new UiRelatedTask<List<FunctionsList>>() {
 
             @Override
-            protected String doWork() {
+            protected List<FunctionsList> doWork() {
 
                 FunctionsDatabase functionsDatabase = new FunctionsDatabase(context);
-                Cursor data = functionsDatabase.getFunctionNames();
+                Cursor data = functionsDatabase.getFunctions();
                 if (data != null){
                     while (data.moveToNext()){
 
-                        functionName = data.getString(data.getColumnIndexOrThrow(FunctionsDatabase.key_function_name));
+                        function_name = data.getString(data.getColumnIndexOrThrow(FunctionsDatabase.key_function_name));
                         ad_id = data.getString(data.getColumnIndexOrThrow(FunctionsDatabase.key_ad_id));
+                        ad_ids_to_compare = data.getString(data.getColumnIndexOrThrow(FunctionsDatabase.key_ad_ids_to_compare));
+                        amount = data.getString(data.getColumnIndexOrThrow(FunctionsDatabase.key_amount));
+                        new_trade_first_msg = data.getString(data.getColumnIndexOrThrow(FunctionsDatabase.key_new_trade_first_msg));
+                        isAbove = data.getInt(data.getColumnIndexOrThrow(FunctionsDatabase.key_isAbove));
 
+                        FunctionsList function = new FunctionsList(function_name, ad_id, ad_ids_to_compare,
+                            amount, new_trade_first_msg, isAbove);
+                        functionsLists.add(function);
                     }
                     data.close();
                     functionsDatabase.close();
                 }
 
-                return null;
+                return functionsLists;
             }
 
             @Override
-            protected void thenDoUiRelatedWork(String result) {
+            protected void thenDoUiRelatedWork(List<FunctionsList> functionsList) {
                 avi.smoothToHide();
 
+                functionListAdapter.notifyDataSetChanged();
             }
         });
     }

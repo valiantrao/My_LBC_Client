@@ -65,7 +65,7 @@ public class BuyFragment extends Fragment {
 
         SessionManager sessionManager = new SessionManager(context);
         avi = view.findViewById(R.id.avi);
-        loadData(sessionManager.getLbcKey(), sessionManager.getLbcSecret());
+
 
         recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -74,6 +74,7 @@ public class BuyFragment extends Fragment {
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(buyListAdapter);
 
+        loadData(sessionManager.getLbcKey(), sessionManager.getLbcSecret());
     }
 
     private void loadData(String key, String secret){
